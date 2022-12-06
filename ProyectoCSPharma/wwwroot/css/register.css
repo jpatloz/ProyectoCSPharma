@@ -1,0 +1,15 @@
+﻿body{
+    background-color: aquamarine;
+}
+
+.form {
+    position: absolute;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    top: 50%;
+    left: 50%;
+    transform: translate(-49%, -49%);
+}
+
+link{
+    padding: 15px;
+}
