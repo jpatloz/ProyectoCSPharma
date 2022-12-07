@@ -5,25 +5,26 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
 
 <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
 
 <div class="body row">
     <div class="col-md-4">
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+            <img src="~/img/Logo.png" alt="Logo" width="200" height="150" class="d-inline-block align-text-top">
+        </a>
         <section>
             <form class="form" id="account" method="post">
-                <h2>Use a local account to log in.</h2>
-                <hr />
+                <h2>Login with your account</h2>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-floating">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                <div class="username mb-3 row justify-content-center">
                     <label asp-for="Input.Email" class="form-label"></label>
+                    <input asp-for="Input.Email" class="box col-sm-2 col-form-label" autocomplete="username" aria-required="true" />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
-                <div class="form-floating">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                <div class="password mb-3 row justify-content-center">
                     <label asp-for="Input.Password" class="form-label"></label>
+                    <input asp-for="Input.Password" class="box col-sm-2 col-form-label" autocomplete="current-password" aria-required="true" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div>
@@ -35,7 +36,7 @@
                     </div>
                 </div>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <button id="login-submit" type="submit" class="button">Log in</button>
                 </div>
                 <div>
                     <p>
@@ -55,4 +56,5 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
 }

@@ -46,7 +46,7 @@ namespace ProyectoCSPharma.Migrations
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles", "dlk_torrecontrol");
+                    b.ToTable("Dlk_cat_acc_roles", "dlk_torrecontrol");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -71,59 +71,7 @@ namespace ProyectoCSPharma.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", "dlk_torrecontrol");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("text");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Dlk_cat_acc_empleados", "dlk_torrecontrol");
+                    b.ToTable("Dlk_cat_acc_claim_roles", "dlk_torrecontrol");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -148,7 +96,7 @@ namespace ProyectoCSPharma.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", "dlk_torrecontrol");
+                    b.ToTable("Dlk_cat_acc_claim_empleados", "dlk_torrecontrol");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -172,7 +120,7 @@ namespace ProyectoCSPharma.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", "dlk_torrecontrol");
+                    b.ToTable("Dlk_cat_acc_login_empleados", "dlk_torrecontrol");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -187,7 +135,7 @@ namespace ProyectoCSPharma.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", "dlk_torrecontrol");
+                    b.ToTable("Dlk_cat_acc_empleados_roles", "dlk_torrecontrol");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -208,7 +156,7 @@ namespace ProyectoCSPharma.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", "dlk_torrecontrol");
+                    b.ToTable("Dlk_cat_acc_token_empleados", "dlk_torrecontrol");
                 });
 
             modelBuilder.Entity("ProyectoCSPharma.Areas.Identity.Data.ApplicationUser", b =>
@@ -282,7 +230,7 @@ namespace ProyectoCSPharma.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers", "dlk_torrecontrol");
+                    b.ToTable("Dlk_cat_acc_empleados", "dlk_torrecontrol");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
