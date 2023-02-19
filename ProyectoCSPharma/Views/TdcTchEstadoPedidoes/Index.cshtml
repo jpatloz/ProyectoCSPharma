@@ -25,25 +25,25 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.MdUuid)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.MdDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodEstadoEnvio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodEstadoPago)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodEstadoDevolucion)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CodPedido)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CodLinea)
+                @Html.DisplayNameFor(model => model.CodEstadoDevolucionNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodEstadoEnvioNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodEstadoPagoNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodLineaNavigation)
             </th>
             <th></th>
         </tr>
@@ -52,25 +52,25 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.MdUuid)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.MdDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodEstadoEnvio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodEstadoPago)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodEstadoDevolucion)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CodPedido)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CodLinea)
+                @Html.DisplayFor(modelItem => item.CodEstadoDevolucionNavigation.CodEstadoDevolucion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodEstadoEnvioNavigation.CodEstadoEnvio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodEstadoPagoNavigation.CodEstadoPago)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodLineaNavigation.CodLinea)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |

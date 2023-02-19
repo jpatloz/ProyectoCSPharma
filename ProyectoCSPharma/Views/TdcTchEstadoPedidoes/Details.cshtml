@@ -4,41 +4,25 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<!-- Página que muestra los detalles de las líneas de distribución -->
+
+<h1>Detalles</h1>
 
 <div>
-    <h4>TdcTchEstadoPedido</h4>
+    <h4>Estado de los pedidos</h4>
     <hr />
     <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MdUuid)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MdUuid)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.MdDate)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.MdDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CodEstadoEnvio)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CodEstadoEnvio)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CodEstadoPago)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CodEstadoPago)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CodEstadoDevolucion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CodEstadoDevolucion)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CodPedido)
@@ -47,14 +31,32 @@
             @Html.DisplayFor(model => model.CodPedido)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CodLinea)
+            @Html.DisplayNameFor(model => model.CodEstadoDevolucionNavigation)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CodLinea)
+            @Html.DisplayFor(model => model.CodEstadoDevolucionNavigation.CodEstadoDevolucion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CodEstadoEnvioNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CodEstadoEnvioNavigation.CodEstadoEnvio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CodEstadoPagoNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CodEstadoPagoNavigation.CodEstadoPago)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CodLineaNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CodLineaNavigation.CodLinea)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.MdUuid">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Editar</a> |
+    <a asp-action="Index">Volver</a>
 </div>

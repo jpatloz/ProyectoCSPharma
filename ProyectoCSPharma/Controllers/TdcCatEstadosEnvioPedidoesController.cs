@@ -35,6 +35,7 @@ namespace ProyectoCSPharma.Controllers
             return View(await envioPed.ToListAsync());
         }
 
+
         // GET: TdcCatEstadosEnvioPedidoes/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -60,7 +61,8 @@ namespace ProyectoCSPharma.Controllers
         }
 
         // POST: TdcCatEstadosEnvioPedidoes/Create
-
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MdUuid,MdDate,Id,CodEstadoEnvio,DesEstadoEnvio")] TdcCatEstadosEnvioPedido tdcCatEstadosEnvioPedido)
@@ -91,7 +93,8 @@ namespace ProyectoCSPharma.Controllers
         }
 
         // POST: TdcCatEstadosEnvioPedidoes/Edit/5
-
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("MdUuid,MdDate,Id,CodEstadoEnvio,DesEstadoEnvio")] TdcCatEstadosEnvioPedido tdcCatEstadosEnvioPedido)

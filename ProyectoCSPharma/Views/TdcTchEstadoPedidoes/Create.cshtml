@@ -4,9 +4,10 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<!-- Página para crear un elemento -->
 
-<h4>TdcTchEstadoPedido</h4>
+<h1>Crear</h1>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,18 +25,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="CodEstadoEnvio" class="control-label"></label>
-                <input asp-for="CodEstadoEnvio" class="form-control" />
-                <span asp-validation-for="CodEstadoEnvio" class="text-danger"></span>
+                <select asp-for="CodEstadoEnvio" class ="form-control" asp-items="ViewBag.CodEstadoEnvio"></select>
             </div>
             <div class="form-group">
                 <label asp-for="CodEstadoPago" class="control-label"></label>
-                <input asp-for="CodEstadoPago" class="form-control" />
-                <span asp-validation-for="CodEstadoPago" class="text-danger"></span>
+                <select asp-for="CodEstadoPago" class ="form-control" asp-items="ViewBag.CodEstadoPago"></select>
             </div>
             <div class="form-group">
                 <label asp-for="CodEstadoDevolucion" class="control-label"></label>
-                <input asp-for="CodEstadoDevolucion" class="form-control" />
-                <span asp-validation-for="CodEstadoDevolucion" class="text-danger"></span>
+                <select asp-for="CodEstadoDevolucion" class ="form-control" asp-items="ViewBag.CodEstadoDevolucion"></select>
             </div>
             <div class="form-group">
                 <label asp-for="CodPedido" class="control-label"></label>
@@ -44,18 +42,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="CodLinea" class="control-label"></label>
-                <input asp-for="CodLinea" class="form-control" />
-                <span asp-validation-for="CodLinea" class="text-danger"></span>
+                <select asp-for="CodLinea" class ="form-control" asp-items="ViewBag.CodLinea"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver</a>
 </div>
 
 @section Scripts {

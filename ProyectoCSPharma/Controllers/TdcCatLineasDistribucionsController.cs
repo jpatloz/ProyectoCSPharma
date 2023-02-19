@@ -44,7 +44,7 @@ namespace ProyectoCSPharma.Controllers
             }
 
             var tdcCatLineasDistribucion = await _context.TdcCatLineasDistribucions
-                .FirstOrDefaultAsync(m => m.MdUuid == id);
+                .FirstOrDefaultAsync(m => m.CodLinea == id);
             if (tdcCatLineasDistribucion == null)
             {
                 return NotFound();
@@ -98,7 +98,7 @@ namespace ProyectoCSPharma.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("MdUuid,MdDate,Id,CodLinea,CodProvincia,CodMunicipio,CodBarrio")] TdcCatLineasDistribucion tdcCatLineasDistribucion)
         {
-            if (id != tdcCatLineasDistribucion.MdUuid)
+            if (id != tdcCatLineasDistribucion.CodLinea)
             {
                 return NotFound();
             }
@@ -112,7 +112,7 @@ namespace ProyectoCSPharma.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TdcCatLineasDistribucionExists(tdcCatLineasDistribucion.MdUuid))
+                    if (!TdcCatLineasDistribucionExists(tdcCatLineasDistribucion.CodLinea))
                     {
                         return NotFound();
                     }
@@ -135,7 +135,7 @@ namespace ProyectoCSPharma.Controllers
             }
 
             var tdcCatLineasDistribucion = await _context.TdcCatLineasDistribucions
-                .FirstOrDefaultAsync(m => m.MdUuid == id);
+                .FirstOrDefaultAsync(m => m.CodLinea == id);
             if (tdcCatLineasDistribucion == null)
             {
                 return NotFound();
@@ -165,7 +165,7 @@ namespace ProyectoCSPharma.Controllers
 
         private bool TdcCatLineasDistribucionExists(string id)
         {
-          return _context.TdcCatLineasDistribucions.Any(e => e.MdUuid == id);
+          return _context.TdcCatLineasDistribucions.Any(e => e.CodLinea == id);
         }
     }
 }

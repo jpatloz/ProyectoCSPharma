@@ -48,7 +48,6 @@ public partial class CspharmaInformacionalContext : DbContext
                 .HasColumnName("des_estado_devolucion");
             entity.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
-                .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.MdDate)
                 .HasColumnType("timestamp without time zone")
@@ -72,7 +71,6 @@ public partial class CspharmaInformacionalContext : DbContext
                 .HasColumnName("des_estado_envio");
             entity.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
-                .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.MdDate)
                 .HasColumnType("timestamp without time zone")
@@ -96,7 +94,6 @@ public partial class CspharmaInformacionalContext : DbContext
                 .HasColumnName("des_estado_pago");
             entity.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
-                .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.MdDate)
                 .HasColumnType("timestamp without time zone")
@@ -126,7 +123,6 @@ public partial class CspharmaInformacionalContext : DbContext
                 .HasColumnName("cod_provincia");
             entity.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
-                .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.MdDate)
                 .HasColumnType("timestamp without time zone")
@@ -135,15 +131,15 @@ public partial class CspharmaInformacionalContext : DbContext
 
         modelBuilder.Entity<TdcTchEstadoPedido>(entity =>
         {
-            entity.ToTable("Tdc_tch_estado_pedidos", "dwh_torrecontrol");
+            entity.ToTable("tdc_tch_estado_pedidos", "dwh_torrecontrol");
 
-            entity.HasIndex(e => e.CodEstadoDevolucion, "IX_Tdc_tch_estado_pedidos_Cod_estado_devolucion");
+            entity.HasIndex(e => e.CodEstadoDevolucion, "IX_tdc_tch_estado_pedidos_Cod_estado_devolucion");
 
-            entity.HasIndex(e => e.CodEstadoEnvio, "IX_Tdc_tch_estado_pedidos_Cod_estado_envio");
+            entity.HasIndex(e => e.CodEstadoEnvio, "IX_tdc_tch_estado_pedidos_Cod_estado_envio");
 
-            entity.HasIndex(e => e.CodEstadoPago, "IX_Tdc_tch_estado_pedidos_Cod_estado_pago");
+            entity.HasIndex(e => e.CodEstadoPago, "IX_tdc_tch_estado_pedidos_Cod_estado_pago");
 
-            entity.HasIndex(e => e.CodLinea, "IX_Tdc_tch_estado_pedidos_Cod_linea");
+            entity.HasIndex(e => e.CodLinea, "IX_tdc_tch_estado_pedidos_Cod_linea");
 
             entity.Property(e => e.CodEstadoDevolucion).HasColumnName("Cod_estado_devolucion");
             entity.Property(e => e.CodEstadoEnvio).HasColumnName("Cod_estado_envio");

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class CambiosFK : Migration
+    public partial class CambiosId : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,7 +24,7 @@ namespace DAL.Migrations
                     mduuid = table.Column<string>(name: "md_uuid", type: "character varying", nullable: false),
                     mddate = table.Column<DateTime>(name: "md_date", type: "timestamp without time zone", nullable: false),
                     id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     desestadodevolucion = table.Column<string>(name: "des_estado_devolucion", type: "character varying", nullable: true)
                 },
                 constraints: table =>
@@ -41,7 +41,7 @@ namespace DAL.Migrations
                     mduuid = table.Column<string>(name: "md_uuid", type: "character varying", nullable: false),
                     mddate = table.Column<DateTime>(name: "md_date", type: "timestamp without time zone", nullable: false),
                     id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     desestadoenvio = table.Column<string>(name: "des_estado_envio", type: "character varying", nullable: true)
                 },
                 constraints: table =>
@@ -58,7 +58,7 @@ namespace DAL.Migrations
                     mduuid = table.Column<string>(name: "md_uuid", type: "character varying", nullable: false),
                     mddate = table.Column<DateTime>(name: "md_date", type: "timestamp without time zone", nullable: false),
                     id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     desestadopago = table.Column<string>(name: "des_estado_pago", type: "character varying", nullable: true)
                 },
                 constraints: table =>
@@ -75,7 +75,7 @@ namespace DAL.Migrations
                     mduuid = table.Column<string>(name: "md_uuid", type: "character varying", nullable: false),
                     mddate = table.Column<DateTime>(name: "md_date", type: "timestamp without time zone", nullable: false),
                     id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     codprovincia = table.Column<string>(name: "cod_provincia", type: "character varying", nullable: false),
                     codmunicipio = table.Column<string>(name: "cod_municipio", type: "character varying", nullable: false),
                     codbarrio = table.Column<string>(name: "cod_barrio", type: "character varying", nullable: false)

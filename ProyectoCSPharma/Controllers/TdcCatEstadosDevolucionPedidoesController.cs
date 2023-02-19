@@ -32,7 +32,7 @@ namespace ProyectoCSPharma.Controllers
                 estadoPed = estadoPed.Where(p => p.DesEstadoDevolucion!.Contains(buscar));
             }
 
-              return View(await estadoPed.ToListAsync());
+            return View(await estadoPed.ToListAsync());
         }
 
         // GET: TdcCatEstadosDevolucionPedidoes/Details/5
@@ -143,6 +143,7 @@ namespace ProyectoCSPharma.Controllers
         }
 
         // POST: TdcCatEstadosDevolucionPedidoes/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)

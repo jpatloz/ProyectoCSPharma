@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ProyectoCSPharma.Controllers
 {
+
     [Authorize(Roles = "Administradores, Usuarios")]
     public class TdcTchEstadoPedidoesController : Controller
     {
@@ -23,7 +24,8 @@ namespace ProyectoCSPharma.Controllers
         // GET: TdcTchEstadoPedidoes
         public async Task<IActionResult> Index(string buscar)
         {
-            //Query para el filtro de búsqueda
+            var cspharmaInformacionalContext = _context.TdcTchEstadoPedidos.Include(t => t.CodEstadoDevolucionNavigation).Include(t => t.CodEstadoEnvioNavigation).Include(t => t.CodEstadoPagoNavigation).Include(t => t.CodLineaNavigation);
+            return View(await cspharmaInformacionalContext.ToListAsync());
 
             var estadoPed = from pedido in _context.TdcTchEstadoPedidos select pedido;
 
@@ -34,8 +36,9 @@ namespace ProyectoCSPharma.Controllers
 
             return View(await estadoPed.ToListAsync());
         }
+
         // GET: TdcTchEstadoPedidoes/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(long? id)
         {
             if (id == null || _context.TdcTchEstadoPedidos == null)
             {
@@ -43,7 +46,11 @@ namespace ProyectoCSPharma.Controllers
             }
 
             var tdcTchEstadoPedido = await _context.TdcTchEstadoPedidos
-                .FirstOrDefaultAsync(m => m.MdUuid == id);
+                .Include(t => t.CodEstadoDevolucionNavigation)
+                .Include(t => t.CodEstadoEnvioNavigation)
+                .Include(t => t.CodEstadoPagoNavigation)
+                .Include(t => t.CodLineaNavigation)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (tdcTchEstadoPedido == null)
             {
                 return NotFound();
@@ -55,6 +62,10 @@ namespace ProyectoCSPharma.Controllers
         // GET: TdcTchEstadoPedidoes/Create
         public IActionResult Create()
         {
+            ViewData["CodEstadoDevolucion"] = new SelectList(_context.TdcCatEstadosDevolucionPedidos, "CodEstadoDevolucion", "CodEstadoDevolucion");
+            ViewData["CodEstadoEnvio"] = new SelectList(_context.TdcCatEstadosEnvioPedidos, "CodEstadoEnvio", "CodEstadoEnvio");
+            ViewData["CodEstadoPago"] = new SelectList(_context.TdcCatEstadosPagoPedidos, "CodEstadoPago", "CodEstadoPago");
+            ViewData["CodLinea"] = new SelectList(_context.TdcCatLineasDistribucions, "CodLinea", "CodLinea");
             return View();
         }
 
@@ -71,11 +82,15 @@ namespace ProyectoCSPharma.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CodEstadoDevolucion"] = new SelectList(_context.TdcCatEstadosDevolucionPedidos, "CodEstadoDevolucion", "CodEstadoDevolucion", tdcTchEstadoPedido.CodEstadoDevolucion);
+            ViewData["CodEstadoEnvio"] = new SelectList(_context.TdcCatEstadosEnvioPedidos, "CodEstadoEnvio", "CodEstadoEnvio", tdcTchEstadoPedido.CodEstadoEnvio);
+            ViewData["CodEstadoPago"] = new SelectList(_context.TdcCatEstadosPagoPedidos, "CodEstadoPago", "CodEstadoPago", tdcTchEstadoPedido.CodEstadoPago);
+            ViewData["CodLinea"] = new SelectList(_context.TdcCatLineasDistribucions, "CodLinea", "CodLinea", tdcTchEstadoPedido.CodLinea);
             return View(tdcTchEstadoPedido);
         }
 
         // GET: TdcTchEstadoPedidoes/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(long? id)
         {
             if (id == null || _context.TdcTchEstadoPedidos == null)
             {
@@ -87,16 +102,21 @@ namespace ProyectoCSPharma.Controllers
             {
                 return NotFound();
             }
+            ViewData["CodEstadoDevolucion"] = new SelectList(_context.TdcCatEstadosDevolucionPedidos, "CodEstadoDevolucion", "CodEstadoDevolucion", tdcTchEstadoPedido.CodEstadoDevolucion);
+            ViewData["CodEstadoEnvio"] = new SelectList(_context.TdcCatEstadosEnvioPedidos, "CodEstadoEnvio", "CodEstadoEnvio", tdcTchEstadoPedido.CodEstadoEnvio);
+            ViewData["CodEstadoPago"] = new SelectList(_context.TdcCatEstadosPagoPedidos, "CodEstadoPago", "CodEstadoPago", tdcTchEstadoPedido.CodEstadoPago);
+            ViewData["CodLinea"] = new SelectList(_context.TdcCatLineasDistribucions, "CodLinea", "CodLinea", tdcTchEstadoPedido.CodLinea);
             return View(tdcTchEstadoPedido);
         }
 
         // POST: TdcTchEstadoPedidoes/Edit/5
-
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("MdUuid,MdDate,Id,CodEstadoEnvio,CodEstadoPago,CodEstadoDevolucion,CodPedido,CodLinea")] TdcTchEstadoPedido tdcTchEstadoPedido)
+        public async Task<IActionResult> Edit(long id, [Bind("MdUuid,MdDate,Id,CodEstadoEnvio,CodEstadoPago,CodEstadoDevolucion,CodPedido,CodLinea")] TdcTchEstadoPedido tdcTchEstadoPedido)
         {
-            if (id != tdcTchEstadoPedido.MdUuid)
+            if (id != tdcTchEstadoPedido.Id)
             {
                 return NotFound();
             }
@@ -110,7 +130,7 @@ namespace ProyectoCSPharma.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TdcTchEstadoPedidoExists(tdcTchEstadoPedido.MdUuid))
+                    if (!TdcTchEstadoPedidoExists(tdcTchEstadoPedido.Id))
                     {
                         return NotFound();
                     }
@@ -121,11 +141,15 @@ namespace ProyectoCSPharma.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CodEstadoDevolucion"] = new SelectList(_context.TdcCatEstadosDevolucionPedidos, "CodEstadoDevolucion", "CodEstadoDevolucion", tdcTchEstadoPedido.CodEstadoDevolucion);
+            ViewData["CodEstadoEnvio"] = new SelectList(_context.TdcCatEstadosEnvioPedidos, "CodEstadoEnvio", "CodEstadoEnvio", tdcTchEstadoPedido.CodEstadoEnvio);
+            ViewData["CodEstadoPago"] = new SelectList(_context.TdcCatEstadosPagoPedidos, "CodEstadoPago", "CodEstadoPago", tdcTchEstadoPedido.CodEstadoPago);
+            ViewData["CodLinea"] = new SelectList(_context.TdcCatLineasDistribucions, "CodLinea", "CodLinea", tdcTchEstadoPedido.CodLinea);
             return View(tdcTchEstadoPedido);
         }
 
         // GET: TdcTchEstadoPedidoes/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(long? id)
         {
             if (id == null || _context.TdcTchEstadoPedidos == null)
             {
@@ -133,7 +157,11 @@ namespace ProyectoCSPharma.Controllers
             }
 
             var tdcTchEstadoPedido = await _context.TdcTchEstadoPedidos
-                .FirstOrDefaultAsync(m => m.MdUuid == id);
+                .Include(t => t.CodEstadoDevolucionNavigation)
+                .Include(t => t.CodEstadoEnvioNavigation)
+                .Include(t => t.CodEstadoPagoNavigation)
+                .Include(t => t.CodLineaNavigation)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (tdcTchEstadoPedido == null)
             {
                 return NotFound();
@@ -145,7 +173,7 @@ namespace ProyectoCSPharma.Controllers
         // POST: TdcTchEstadoPedidoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(long id)
         {
             if (_context.TdcTchEstadoPedidos == null)
             {
@@ -161,9 +189,9 @@ namespace ProyectoCSPharma.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TdcTchEstadoPedidoExists(string id)
+        private bool TdcTchEstadoPedidoExists(long id)
         {
-          return _context.TdcTchEstadoPedidos.Any(e => e.MdUuid == id);
+          return _context.TdcTchEstadoPedidos.Any(e => e.Id == id);
         }
     }
 }
