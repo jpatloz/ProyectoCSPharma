@@ -21,9 +21,18 @@ namespace ProyectoCSPharma.Controllers
         }
 
         // GET: TdcCatLineasDistribucions
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string buscar)
         {
-              return View(await _context.TdcCatLineasDistribucions.ToListAsync());
+            //Query para el filtro de búsqueda
+
+            var lineaDistribucion = from pedido in _context.TdcCatLineasDistribucions select pedido;
+
+            if (!string.IsNullOrEmpty(buscar))
+            {
+                lineaDistribucion = lineaDistribucion.Where(p => p.CodLinea!.Contains(buscar));
+            }
+
+            return View(await lineaDistribucion.ToListAsync());
         }
 
         // GET: TdcCatLineasDistribucions/Details/5

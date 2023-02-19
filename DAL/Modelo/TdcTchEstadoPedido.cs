@@ -20,4 +20,12 @@ public partial class TdcTchEstadoPedido
     public string CodPedido { get; set; } = null!;
 
     public string CodLinea { get; set; } = null!;
+
+    public virtual TdcCatEstadosDevolucionPedido? CodEstadoDevolucionNavigation { get; set; }
+
+    public virtual TdcCatEstadosEnvioPedido? CodEstadoEnvioNavigation { get; set; }
+
+    public virtual TdcCatEstadosPagoPedido? CodEstadoPagoNavigation { get; set; }
+
+    public virtual TdcCatLineasDistribucion? CodLineaNavigation { get; set; }
 }

@@ -4,11 +4,23 @@
     ViewData["Title"] = "Index";
 }
 
+<!-- Página principal para ver el estado del pedido -->
+
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Añadir</a>
 </p>
+
+<!-- Método para mostrar el filtrado por la vista-->
+
+<form asp-controller="TdcTchEstadoPedidoes" asp-action="Index">
+    <p>
+        Buscar: <input type="text" name="buscar" class="form-text" />
+        <input type="submit" value="Buscar" class="btn btn-sm btn-primary"/>
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -61,9 +73,9 @@
                 @Html.DisplayFor(modelItem => item.CodLinea)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.MdUuid">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MdUuid">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MdUuid">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
             </td>
         </tr>
 }

@@ -14,4 +14,6 @@ public partial class TdcCatEstadosDevolucionPedido
     public string CodEstadoDevolucion { get; set; } = null!;
 
     public string? DesEstadoDevolucion { get; set; }
+
+    public virtual ICollection<TdcTchEstadoPedido>? TdcTchEstadoPedido { get; } = new List<TdcTchEstadoPedido>();
 }

@@ -21,9 +21,18 @@ namespace ProyectoCSPharma.Controllers
         }
 
         // GET: TdcCatEstadosPagoPedidoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string buscar)
         {
-              return View(await _context.TdcCatEstadosPagoPedidos.ToListAsync());
+            //Query para el filtro de búsqueda
+
+            var pagoPed = from pedido in _context.TdcCatEstadosPagoPedidos select pedido;
+
+            if (!string.IsNullOrEmpty(buscar))
+            {
+                pagoPed = pagoPed.Where(p => p.DesEstadoPago!.Contains(buscar));
+            }
+
+            return View(await pagoPed.ToListAsync());
         }
 
         // GET: TdcCatEstadosPagoPedidoes/Details/5
@@ -35,7 +44,7 @@ namespace ProyectoCSPharma.Controllers
             }
 
             var tdcCatEstadosPagoPedido = await _context.TdcCatEstadosPagoPedidos
-                .FirstOrDefaultAsync(m => m.MdUuid == id);
+                .FirstOrDefaultAsync(m => m.CodEstadoPago == id);
             if (tdcCatEstadosPagoPedido == null)
             {
                 return NotFound();
@@ -89,7 +98,7 @@ namespace ProyectoCSPharma.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("MdUuid,MdDate,Id,CodEstadoPago,DesEstadoPago")] TdcCatEstadosPagoPedido tdcCatEstadosPagoPedido)
         {
-            if (id != tdcCatEstadosPagoPedido.MdUuid)
+            if (id != tdcCatEstadosPagoPedido.CodEstadoPago)
             {
                 return NotFound();
             }
@@ -103,7 +112,7 @@ namespace ProyectoCSPharma.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TdcCatEstadosPagoPedidoExists(tdcCatEstadosPagoPedido.MdUuid))
+                    if (!TdcCatEstadosPagoPedidoExists(tdcCatEstadosPagoPedido.CodEstadoPago))
                     {
                         return NotFound();
                     }
@@ -126,7 +135,7 @@ namespace ProyectoCSPharma.Controllers
             }
 
             var tdcCatEstadosPagoPedido = await _context.TdcCatEstadosPagoPedidos
-                .FirstOrDefaultAsync(m => m.MdUuid == id);
+                .FirstOrDefaultAsync(m => m.CodEstadoPago == id);
             if (tdcCatEstadosPagoPedido == null)
             {
                 return NotFound();
@@ -156,7 +165,7 @@ namespace ProyectoCSPharma.Controllers
 
         private bool TdcCatEstadosPagoPedidoExists(string id)
         {
-          return _context.TdcCatEstadosPagoPedidos.Any(e => e.MdUuid == id);
+          return _context.TdcCatEstadosPagoPedidos.Any(e => e.CodEstadoPago == id);
         }
     }
 }

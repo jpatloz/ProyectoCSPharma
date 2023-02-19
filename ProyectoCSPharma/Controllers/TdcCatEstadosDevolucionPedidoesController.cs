@@ -21,9 +21,18 @@ namespace ProyectoCSPharma.Controllers
         }
 
         // GET: TdcCatEstadosDevolucionPedidoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string buscar)
         {
-              return View(await _context.TdcCatEstadosDevolucionPedidos.ToListAsync());
+            //Query para el filtro de búsqueda
+
+            var estadoPed = from pedido in _context.TdcCatEstadosDevolucionPedidos select pedido;
+
+            if (!string.IsNullOrEmpty(buscar))
+            {
+                estadoPed = estadoPed.Where(p => p.DesEstadoDevolucion!.Contains(buscar));
+            }
+
+              return View(await estadoPed.ToListAsync());
         }
 
         // GET: TdcCatEstadosDevolucionPedidoes/Details/5
@@ -35,7 +44,7 @@ namespace ProyectoCSPharma.Controllers
             }
 
             var tdcCatEstadosDevolucionPedido = await _context.TdcCatEstadosDevolucionPedidos
-                .FirstOrDefaultAsync(m => m.MdUuid == id);
+                .FirstOrDefaultAsync(m => m.CodEstadoDevolucion == id);
             if (tdcCatEstadosDevolucionPedido == null)
             {
                 return NotFound();
@@ -51,8 +60,7 @@ namespace ProyectoCSPharma.Controllers
         }
 
         // POST: TdcCatEstadosDevolucionPedidoes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MdUuid,MdDate,Id,CodEstadoDevolucion,DesEstadoDevolucion")] TdcCatEstadosDevolucionPedido tdcCatEstadosDevolucionPedido)
@@ -83,13 +91,12 @@ namespace ProyectoCSPharma.Controllers
         }
 
         // POST: TdcCatEstadosDevolucionPedidoes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("MdUuid,MdDate,Id,CodEstadoDevolucion,DesEstadoDevolucion")] TdcCatEstadosDevolucionPedido tdcCatEstadosDevolucionPedido)
         {
-            if (id != tdcCatEstadosDevolucionPedido.MdUuid)
+            if (id != tdcCatEstadosDevolucionPedido.CodEstadoDevolucion)
             {
                 return NotFound();
             }
@@ -103,7 +110,7 @@ namespace ProyectoCSPharma.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TdcCatEstadosDevolucionPedidoExists(tdcCatEstadosDevolucionPedido.MdUuid))
+                    if (!TdcCatEstadosDevolucionPedidoExists(tdcCatEstadosDevolucionPedido.CodEstadoDevolucion))
                     {
                         return NotFound();
                     }
@@ -126,7 +133,7 @@ namespace ProyectoCSPharma.Controllers
             }
 
             var tdcCatEstadosDevolucionPedido = await _context.TdcCatEstadosDevolucionPedidos
-                .FirstOrDefaultAsync(m => m.MdUuid == id);
+                .FirstOrDefaultAsync(m => m.CodEstadoDevolucion == id);
             if (tdcCatEstadosDevolucionPedido == null)
             {
                 return NotFound();
@@ -156,7 +163,7 @@ namespace ProyectoCSPharma.Controllers
 
         private bool TdcCatEstadosDevolucionPedidoExists(string id)
         {
-          return _context.TdcCatEstadosDevolucionPedidos.Any(e => e.MdUuid == id);
+          return _context.TdcCatEstadosDevolucionPedidos.Any(e => e.CodEstadoDevolucion == id);
         }
     }
 }

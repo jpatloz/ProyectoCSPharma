@@ -21,11 +21,19 @@ namespace ProyectoCSPharma.Controllers
         }
 
         // GET: TdcTchEstadoPedidoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string buscar)
         {
-              return View(await _context.TdcTchEstadoPedidos.ToListAsync());
-        }
+            //Query para el filtro de búsqueda
 
+            var estadoPed = from pedido in _context.TdcTchEstadoPedidos select pedido;
+
+            if (!string.IsNullOrEmpty(buscar))
+            {
+                estadoPed = estadoPed.Where(p => p.CodPedido!.Contains(buscar));
+            }
+
+            return View(await estadoPed.ToListAsync());
+        }
         // GET: TdcTchEstadoPedidoes/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -83,8 +91,7 @@ namespace ProyectoCSPharma.Controllers
         }
 
         // POST: TdcTchEstadoPedidoes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("MdUuid,MdDate,Id,CodEstadoEnvio,CodEstadoPago,CodEstadoDevolucion,CodPedido,CodLinea")] TdcTchEstadoPedido tdcTchEstadoPedido)

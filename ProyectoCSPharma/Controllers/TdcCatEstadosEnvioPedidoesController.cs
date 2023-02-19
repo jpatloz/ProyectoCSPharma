@@ -21,9 +21,18 @@ namespace ProyectoCSPharma.Controllers
         }
 
         // GET: TdcCatEstadosEnvioPedidoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string buscar)
         {
-              return View(await _context.TdcCatEstadosEnvioPedidos.ToListAsync());
+            //Query para el filtro de búsqueda
+
+            var envioPed = from pedido in _context.TdcCatEstadosEnvioPedidos select pedido;
+
+            if (!string.IsNullOrEmpty(buscar))
+            {
+                envioPed = envioPed.Where(p => p.DesEstadoEnvio!.Contains(buscar));
+            }
+
+            return View(await envioPed.ToListAsync());
         }
 
         // GET: TdcCatEstadosEnvioPedidoes/Details/5
@@ -35,7 +44,7 @@ namespace ProyectoCSPharma.Controllers
             }
 
             var tdcCatEstadosEnvioPedido = await _context.TdcCatEstadosEnvioPedidos
-                .FirstOrDefaultAsync(m => m.MdUuid == id);
+                .FirstOrDefaultAsync(m => m.CodEstadoEnvio == id);
             if (tdcCatEstadosEnvioPedido == null)
             {
                 return NotFound();
@@ -51,8 +60,7 @@ namespace ProyectoCSPharma.Controllers
         }
 
         // POST: TdcCatEstadosEnvioPedidoes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MdUuid,MdDate,Id,CodEstadoEnvio,DesEstadoEnvio")] TdcCatEstadosEnvioPedido tdcCatEstadosEnvioPedido)
@@ -83,13 +91,12 @@ namespace ProyectoCSPharma.Controllers
         }
 
         // POST: TdcCatEstadosEnvioPedidoes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("MdUuid,MdDate,Id,CodEstadoEnvio,DesEstadoEnvio")] TdcCatEstadosEnvioPedido tdcCatEstadosEnvioPedido)
         {
-            if (id != tdcCatEstadosEnvioPedido.MdUuid)
+            if (id != tdcCatEstadosEnvioPedido.CodEstadoEnvio)
             {
                 return NotFound();
             }
@@ -103,7 +110,7 @@ namespace ProyectoCSPharma.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TdcCatEstadosEnvioPedidoExists(tdcCatEstadosEnvioPedido.MdUuid))
+                    if (!TdcCatEstadosEnvioPedidoExists(tdcCatEstadosEnvioPedido.CodEstadoEnvio))
                     {
                         return NotFound();
                     }
@@ -126,7 +133,7 @@ namespace ProyectoCSPharma.Controllers
             }
 
             var tdcCatEstadosEnvioPedido = await _context.TdcCatEstadosEnvioPedidos
-                .FirstOrDefaultAsync(m => m.MdUuid == id);
+                .FirstOrDefaultAsync(m => m.CodEstadoEnvio == id);
             if (tdcCatEstadosEnvioPedido == null)
             {
                 return NotFound();
@@ -156,7 +163,7 @@ namespace ProyectoCSPharma.Controllers
 
         private bool TdcCatEstadosEnvioPedidoExists(string id)
         {
-          return _context.TdcCatEstadosEnvioPedidos.Any(e => e.MdUuid == id);
+          return _context.TdcCatEstadosEnvioPedidos.Any(e => e.CodEstadoEnvio == id);
         }
     }
 }
