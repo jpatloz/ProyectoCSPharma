@@ -1,5 +1,9 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+}
+
+body{
+    color: #090909;
 }
 
 @media (min-width: 768px) {
@@ -15,6 +19,7 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: #ffffff;
 }
 
 registerForm {

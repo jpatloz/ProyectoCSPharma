@@ -1,5 +1,6 @@
 ﻿body {
-    background-color: aquamarine;
+    background-color: #ffffff;
+    color: #090909;
 }
 
 .form {
@@ -18,17 +19,21 @@ label{
     position: center;
 }
 
-.box{
+.box {
     position: relative;
     border-radius: 25px;
+    border-color: #5dc1b9;
     padding: 10px;
     width: 100%;
+    color: #5dc1b9;
 }
 
 .button {
     border-radius: 25px;
     width: 100%;
     padding: 15px;
-    background-color: #008CBA;
+    background-color: #ffffff;
+    color: #5dc1b9;
+    border-color: #5dc1b9;
 }
 
